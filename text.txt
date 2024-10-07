@@ -1,2 +1,6 @@
 ~/Desktop/cs412/.venv/bin/python
 
+
+https://github.com/heroku/python-getting-started/blob/main/gettingstarted/settings.py
+
+
