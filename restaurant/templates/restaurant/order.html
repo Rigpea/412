@@ -1,0 +1,60 @@
+<!-- ~/restaurant/templates/order.html -->
+{% extends 'restaurant/base.html' %}
+
+{% block title %}About{% endblock %}
+{% block content %}
+<h1 class="order-title">Place an Order</h1>
+
+
+
+<div class="form">
+
+    <form method="POST" action="{% url 'confirmation' %}">
+        {% csrf_token %}
+        
+        <h3 class="order-place">Select your items:</h3>
+        <input type="checkbox" class="order-options" name="items" value="Cuban Sandwich $5"> Cuban Sandwich $5<br>
+        <input type="checkbox" class="order-options" name="items" value="Pulled Pork Sandwich $2"> Pulled Pork Sandwich $2<br>
+        <input type="checkbox" class="order-options" name="items" value="Orange Chicken $3"> Orange Chicken $3<br>
+    
+        <h3>Today's Special</h3>
+        <input type="checkbox" class="order-options" name="items" value="Loaded Baked Potato $10"> Loaded Baked Potato $10<br>
+        
+        <h3>Special Instructions</h3>
+        <textarea name="comments" id="t" rows="5" cols="40"></textarea>
+        <br>
+        <label for="fname">Full Name:</label>
+        <input type="text" id="fname" name="fname" placeholder="Name pls"><br>
+    
+        <label for="hphone">Phone:</label>
+        <input type="text" id="hphone" name="hphone" placeholder="Enter Phone No."><br>
+    
+        <label for="hemail">Email:</label>
+        <input type="text" id="hemail" name="hemail" placeholder="Enter E-mail"><br>
+    
+        <h3>Place your order!</h3> 
+        <input type="submit" value="Submit Order">
+    </form>
+   
+</div>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{%endblock%}

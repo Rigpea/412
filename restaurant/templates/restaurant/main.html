@@ -1,0 +1,29 @@
+<!-- ~/restaurant/templates/main.html -->
+
+{% extends 'restaurant/base.html' %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+
+<h1>Welcome!</h1>
+
+<img src="{{ image }}" class = 'restaurant-img' alt="Restaurant Photo">
+<p class="restaurant-bio">Welcome to The Lamas, the best lcoal food of Sikkim</p>
+<p class="main-description">We are located in the middle of the himalays in the heart of the state, Sikkim</p>
+<p class="main-location"> Gangtok, Sikkim, 737103</p>
+<table class="main-table">
+    <tr>
+        <th>Day</th>
+        <th>Time</th>
+    </tr>
+    <tr>
+        <td>Weekday</td>
+        <td>8:00 am to 9:00 pm</td>
+    </tr>
+    <tr>
+        <td>Weekend</td>
+        <td>10:00 am to 11:00pm</td>
+    </tr>
+</table>
+{% endblock %}

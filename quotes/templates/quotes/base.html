@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+  
+    <link rel="stylesheet" href="{% static 'quotes/css/styles.css' %}">
+    <title>{% block title %}Quote App{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'quote' %}">Random Quote</a></li>
+                <li><a href="{% url 'show_all' %}">Show All</a></li> 
+                <li><a href="{% url 'about' %}">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

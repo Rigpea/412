@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    
+    <link rel="stylesheet" href="{% static 'restaurant/css/styles.css' %}">
+    
+    <title>{% block title %}Restaurant App{% endblock %}</title>
+</head>
+<body>
+    <h1 class="restaurant-title">The Lamas</h1>
+    <hr>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'main' %}">Main Page</a></li>
+                <li><a href="{% url 'order' %}">Order</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <hr>
+    <hr>
+    <p class="order-author">Page created by rigpea@bu.edu</p>
+    <p class="Time">Generated on Sunday Sep 29 00:41:05 2024</p>
+</body>
+</html>
