@@ -9,3 +9,4 @@ from . import views
 urlpatterns = [
     path(r'', views.home, name="home"), ## our first URL on the app hte main page
 ]
+
