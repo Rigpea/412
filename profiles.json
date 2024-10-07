@@ -1,0 +1,57 @@
+[
+{
+    "model": "mini_fb.profile",
+    "pk": 1,
+    "fields": {
+        "first_name": "Jerry",
+        "last_name": "Ying",
+        "city": "San Jose",
+        "email": "ying@gmail.com",
+        "profile_image_url": "https://m.media-amazon.com/images/M/MV5BMDEyZjE5YTUtNDdkMC00N2NiLTlmNDUtZDYxYTk4ODAxNTk1XkEyXkFqcGc@._V1_QL75_UX175_.jpg"
+    }
+},
+{
+    "model": "mini_fb.profile",
+    "pk": 2,
+    "fields": {
+        "first_name": "An",
+        "last_name": "Ngo",
+        "city": "Ho Chi Mingh",
+        "email": "sue@gmail.com",
+        "profile_image_url": "https://www.bu.edu/sph/files/2023/04/CN-headshot-THUMB-600x362-2-scaled.jpg"
+    }
+},
+{
+    "model": "mini_fb.profile",
+    "pk": 3,
+    "fields": {
+        "first_name": "Rigpay",
+        "last_name": "Wangchuk",
+        "city": "Gangtok",
+        "email": "rigs@example.com",
+        "profile_image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROebnDfSZG3mzfts1qx9tw8C1IZ--Ue7m1IQ&s"
+    }
+},
+{
+    "model": "mini_fb.profile",
+    "pk": 4,
+    "fields": {
+        "first_name": "Steve",
+        "last_name": "Choi",
+        "city": "Seul",
+        "email": "choi@example.com",
+        "profile_image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8l5NkrPsL4t6L6Mq5GexpIe8eyzK4Hu2cUA&s"
+    }
+},
+{
+    "model": "mini_fb.profile",
+    "pk": 5,
+    "fields": {
+        "first_name": "Rachel",
+        "last_name": "Du",
+        "city": "Dan ching",
+        "email": "du@example.com",
+        "profile_image_url": "https://media.licdn.com/dms/image/D4E03AQGQj2TuqfafQQ/profile-displayphoto-shrink_200_200/0/1718294506590?e=2147483647&v=beta&t=64RojiUx9wzJz8kTXyNDykO4nVVMOQpMN9fyGP7wPus"
+    }
+}
+]
