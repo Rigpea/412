@@ -87,11 +87,12 @@ WSGI_APPLICATION = "cs412.wsgi.application"
 
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL')
-    )
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
 
+# Optional: Ensure SSL is required when connecting to PostgreSQL in production
+if 'DATABASE_URL' in os.environ:
+    DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
 
 
 # Password validation
