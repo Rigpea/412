@@ -1,1 +1,1 @@
-web: gunicorn new_project_name.wsgi
+web: gunicorn cs412.wsgi
