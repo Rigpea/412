@@ -15,7 +15,19 @@
             <th>Profile Image</th>
             <td><img src="{{ profiles.profile_image_url }}" alt="Profile Image" style="width:300px;height:auto;"></td>
         </tr>
-      
     </table>
+
+    <!-- Status Messages Section Outside the Table -->
+    <h2>Status Messages</h2>
+    <ul>
+        {% for message in profiles.get_status_messages %}
+            <li>
+                <p>{{ message.timestamp|date:"M d, Y H:i" }}: {{ message.message }}</p>
+            </li>
+        {% empty %}
+            <p>No status messages posted</p>
+        {% endfor %}
+    </ul>
+
     <a href="{% url 'show_all_profiles' %}">Back to Profiles</a>
 {% endblock %}

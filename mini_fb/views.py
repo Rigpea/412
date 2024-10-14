@@ -19,6 +19,10 @@ class ShowProfilesPageView(DetailView):
     model = Profile
     template_name = 'mini_fb/show_profile.html'
     context_object_name = 'profiles'  # or 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
     
 
     # gotta now pass it the profile how? 
