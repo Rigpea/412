@@ -2,9 +2,9 @@
 
 
 from django.shortcuts import render
-from .models import Profile
+from .models import Profile, StatusMessage
 from django.views.generic import ListView, DetailView, CreateView
-from .forms import CreateProfileForm
+from .forms import CreateProfileForm, CreateStatusMessageForm
 from django.urls import reverse
 
 # Create your views here.
@@ -37,3 +37,23 @@ class CreateProfileView(CreateView):
 
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.object.pk})
+    
+class CreateStatusMessageView(CreateView):
+    model = StatusMessage
+    form_class = CreateStatusMessageForm
+    template_name = 'mini_fb/create_status_form.html'
+
+    def get_context_data(self, **kwargs):
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        context = {
+            'profile': profile,
+            'form': self.get_form(self.form_class)
+        }
+        return context
+    def form_valid(self, form):
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        form.instance.profile = profile
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']}) 
