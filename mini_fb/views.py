@@ -6,6 +6,9 @@ from .models import Profile, StatusMessage, Image
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 from django.urls import reverse
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 
@@ -72,30 +75,29 @@ class CreateStatusMessageView(CreateView):
     template_name = 'mini_fb/create_status_form.html'
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) 
         profile = Profile.objects.get(pk=self.kwargs['pk'])
-        context = {
-            'profile': profile,
-            'form': self.get_form(self.form_class)
-        }
+        context['profile'] = profile
         return context
     def form_valid(self, form):
-        
-        profile = Profile.objects.get(pk=self.kwargs['pk'])
-        sm = form.save(commit=False)
-        sm.profile = profile  
-        sm.save()
+        try:
+            profile = Profile.objects.get(pk=self.kwargs['pk'])
+            sm = form.save(commit=False)
+            sm.profile = profile
+            sm.save()
 
-        # Getting and processing the uploaded images
-        files = self.request.FILES.getlist('files') 
-        
-        for file in files:
-        
-            img = Image()
-            img.image_file = file  
-            img.status_message = sm  # image has a reference to a status_message
-            img.save()  # put inmage in database
-        
-        return super().form_valid(form)
+            files = self.request.FILES.getlist('files')
+            for file in files:
+                img = Image()
+                img.image_file = file
+                img.status_message = sm
+                img.save()
+
+            return super().form_valid(form)
+        except Exception as e:
+            logger.error(f"Error creating status message: {e}")
+            form.add_error(None, "An unexpected error occurred.")
+            return self.form_invalid(form)
 
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']}) 
