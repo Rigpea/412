@@ -23,6 +23,11 @@
         {% for message in profiles.get_status_messages %}
             <li>
                 <p>{{ message.timestamp|date:"M d, Y H:i" }}: {{ message.message }}</p>
+                <a href="{% url 'update_status' message.pk %}">Update</a>
+                <a href="{% url 'delete_status' message.pk %}">Delete</a>
+                {% for img in message.get_images %}
+                    <img src="{{ img.image_file.url }}" alt="Image for {{ message.message }}" style="width:200px;height:auto;">
+                {% endfor %}
             </li>
         {% empty %}
             <p>No status messages posted</p>
@@ -32,6 +37,6 @@
         
     </ul>
     <a href="{% url 'create_status' profiles.pk %}">Create a Status</a>
-
+    <a href="{% url 'update_profile' profiles.pk %}">Update Profile</a>
     <a href="{% url 'show_all_profiles' %}">Back to Profiles</a>
 {% endblock %}

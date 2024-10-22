@@ -1,0 +1,17 @@
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+    <h2>Are you sure you want to delete this status?</h2>
+    <p>{{ status_message.message }}</p>
+
+    <!-- Confirm-->
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Confirm Delete</button>
+    </form>
+
+    <!-- Cancel-->
+    <form method="GET" action="{% url 'show_profile' status_message.profile.pk %}">
+        <button type="submit">Cancel</button>
+    </form>
+{% endblock %}

@@ -2,9 +2,9 @@
 
 
 from django.shortcuts import render
-from .models import Profile, StatusMessage
-from django.views.generic import ListView, DetailView, CreateView
-from .forms import CreateProfileForm, CreateStatusMessageForm
+from .models import Profile, StatusMessage, Image
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 from django.urls import reverse
 
 # Create your views here.
@@ -29,6 +29,34 @@ class ShowProfilesPageView(DetailView):
 
     # gotta now pass it the profile how? 
     # need to perform a get operatino from model 
+class UpdateStatusMessageView(UpdateView):
+    model = StatusMessage
+    form_class = CreateStatusMessageForm
+    template_name = 'mini_fb/update_status_form.html'
+    context_object_name = 'status_message'
+
+    def get_success_url(self):
+        # Back to profile
+        profile_pk = self.object.profile.pk
+        return reverse('show_profile', kwargs={'pk': profile_pk})
+    
+class DeleteStatusMessageView(DeleteView):
+    model = StatusMessage
+    template_name = 'mini_fb/delete_status_form.html'
+    context_object_name = 'status_message'  
+
+    def get_success_url(self):
+        # go back to profile
+        profile_pk = self.object.profile.pk
+        return reverse('show_profile', kwargs={'pk': profile_pk})
+class UpdateProfileView(UpdateView):
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = 'mini_fb/update_profile_form.html'  # The template to render the form
+
+    def get_success_url(self):
+        # Redirect back to the profile page after updating
+        return reverse('show_profile', kwargs={'pk': self.object.pk})
 
 class CreateProfileView(CreateView):
     model = Profile
@@ -51,8 +79,22 @@ class CreateStatusMessageView(CreateView):
         }
         return context
     def form_valid(self, form):
+        
         profile = Profile.objects.get(pk=self.kwargs['pk'])
-        form.instance.profile = profile
+        sm = form.save(commit=False)
+        sm.profile = profile  
+        sm.save()
+
+        # Getting and processing the uploaded images
+        files = self.request.FILES.getlist('files') 
+        
+        for file in files:
+        
+            img = Image()
+            img.image_file = file  
+            img.status_message = sm  # image has a reference to a status_message
+            img.save()  # put inmage in database
+        
         return super().form_valid(form)
 
     def get_success_url(self):
