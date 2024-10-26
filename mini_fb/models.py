@@ -32,6 +32,9 @@ class StatusMessage(models.Model):
     
 
 
+    
+
+
 
 
 class Image(models.Model):
@@ -41,3 +44,6 @@ class Image(models.Model):
 
     def __str__(self):
         return f"Image for {self.status_message} at {self.timestamp}"
+
+# class Friends(models.Model):
+#     profiles = 
