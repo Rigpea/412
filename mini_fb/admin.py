@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, StatusMessage, Image
+from .models import Profile, StatusMessage, Image, Friend
 
 class ImageInline(admin.TabularInline):
     model = Image
@@ -10,3 +10,4 @@ class StatusMessageAdmin(admin.ModelAdmin):
 # Register the models
 admin.site.register(Profile)
 admin.site.register(StatusMessage, StatusMessageAdmin)
+admin.site.register(Friend)

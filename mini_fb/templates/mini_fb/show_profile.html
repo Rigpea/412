@@ -16,7 +16,35 @@
             <td><img src="{{ profiles.profile_image_url }}" alt="Profile Image" style="width:300px;height:auto;"></td>
         </tr>
     </table>
+     <!-- Display friends -->
+     <h2>Friends</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Profile Image</th>
+                    <th>Friend's Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for friend in profiles.get_friends %}
+                    <tr>
+                        <!-- Display friend’s profile image -->
+                        <td>
+                            <img src="{{ friend.profile_image_url }}" alt="{{ friend.first_name }}'s profile image" style="width:50px; height:50px; border-radius:50%;">
+                        </td>
 
+                        <!-- Link to the friend's profile page with their name -->
+                        <td>
+                            <a href="{% url 'show_profile' friend.pk %}">{{ friend.first_name }} {{ friend.last_name }}</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">No friends yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     <!-- Status Messages Section Outside the Table -->
     <h2>Status Messages</h2>
     <ul>

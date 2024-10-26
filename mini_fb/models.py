@@ -16,6 +16,22 @@ class Profile(models.Model):
         return self.status_messages.all().order_by('-timestamp')
     def get_absolute_url(self):
         return reverse('show_profile', kwargs={'pk': self.pk})
+    def get_friends(self):
+
+        #get all friends that is the person appears in eigther col1 or col2 and return
+
+        friends = []
+        profile1 = Friend.objects.filter(profile1=self)
+        profile2 = Friend.objects.filter(profile2=self)
+
+        for friend in profile1:
+            friends.append(friend.profile2) 
+
+        for friend in profile2:
+            friends.append(friend.profile1) 
+        return friends  
+
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
     
@@ -45,5 +61,11 @@ class Image(models.Model):
     def __str__(self):
         return f"Image for {self.status_message} at {self.timestamp}"
 
-# class Friends(models.Model):
-#     profiles = 
+class Friend(models.Model):
+    profile1 = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name="profile1")
+    profile2 = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name="profile2")
+    timestamp = models.DateTimeField(default=timezone.now)  #anivarsary
+
+    def __str__(self):
+        # p1 is friends with p2
+        return f"{self.profile1} & {self.profile2}"
