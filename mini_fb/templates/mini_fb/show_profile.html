@@ -17,6 +17,7 @@
         </tr>
     </table>
      <!-- Display friends -->
+     <a href="{% url 'news_feed' profiles.pk %}">View News Feed</a>
      <h2>Friends</h2>
         <table>
             <thead>
@@ -28,12 +29,9 @@
             <tbody>
                 {% for friend in profiles.get_friends %}
                     <tr>
-                        <!-- Display friend’s profile image -->
                         <td>
                             <img src="{{ friend.profile_image_url }}" alt="{{ friend.first_name }}'s profile image" style="width:50px; height:50px; border-radius:50%;">
                         </td>
-
-                        <!-- Link to the friend's profile page with their name -->
                         <td>
                             <a href="{% url 'show_profile' friend.pk %}">{{ friend.first_name }} {{ friend.last_name }}</a>
                         </td>
@@ -46,6 +44,7 @@
             </tbody>
         </table>
     <!-- Status Messages Section Outside the Table -->
+    <a href="{% url 'friend_suggestions' profiles.pk %}">View Friend Suggestions</a>
     <h2>Status Messages</h2>
     <ul>
         {% for message in profiles.get_status_messages %}

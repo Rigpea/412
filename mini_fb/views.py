@@ -3,10 +3,11 @@
 
 from django.shortcuts import render
 from .models import Profile, StatusMessage, Image
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 from django.urls import reverse
 import logging
+from django.http import HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -42,6 +43,7 @@ class UpdateStatusMessageView(UpdateView):
         # Back to profile
         profile_pk = self.object.profile.pk
         return reverse('show_profile', kwargs={'pk': profile_pk})
+    
     
 class DeleteStatusMessageView(DeleteView):
     model = StatusMessage
@@ -98,6 +100,19 @@ class CreateStatusMessageView(CreateView):
             logger.error(f"Error creating status message: {e}")
             form.add_error(None, "An unexpected error occurred.")
             return self.form_invalid(form)
+class CreateFriendView(View):
+    def dispatch(self, request, *args, **kwargs):
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        other = Profile.objects.get(pk=self.kwargs['other_pk'])
+        profile.add_friend(other)
 
-    def get_success_url(self):
-        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']}) 
+        return HttpResponseRedirect(reverse('show_profile', kwargs={'pk': profile.pk}))
+class ShowFriendSuggestionsView(DetailView):
+    model = Profile
+    template_name = 'mini_fb/friend_suggestions.html'
+    context_object_name = 'profiles'
+
+class ShowNewsFeedView(DetailView):
+    model = Profile
+    template_name = 'mini_fb/news_feed.html'
+    context_object_name = 'profiles'

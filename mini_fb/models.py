@@ -30,6 +30,30 @@ class Profile(models.Model):
         for friend in profile2:
             friends.append(friend.profile1) 
         return friends  
+    def add_friend(self, other):
+        #Rejection of friends
+        if self == other: 
+            return
+        if other in self.get_friends():
+            return 
+        # Add the relation
+        Friend.objects.create(profile1=self, profile2=other)
+    def get_friend_suggestions(self):
+       current_friends = self.get_friends()
+       return Profile.objects.exclude(id__in=[friend.id for friend in current_friends] + [self.id])
+
+    def get_news_feed(self):
+        own_status_message = StatusMessage.objects.filter(profile=self).values_list('id', flat=True)
+
+        friends = self.get_friends()
+        friends_status_message = StatusMessage.objects.filter(profile__in = friends).values_list('id', flat=True)
+
+        all_messages = list(own_status_message) + list(friends_status_message)
+
+
+
+        feed = StatusMessage.objects.filter(id__in=all_messages).order_by('-timestamp')
+        return feed
 
 
     def __str__(self):
