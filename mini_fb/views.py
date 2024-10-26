@@ -98,7 +98,7 @@ class CreateStatusMessageView(CreateView):
             return super().form_valid(form)
         except Exception as e:
             logger.error(f"Error creating status message: {e}")
-            form.add_error(None, "An unexpected error occurred.")
+            form.add_error(None, "An unexpected error occurred. views.py/CreateStatusView/form_valid")
             return self.form_invalid(form)
 class CreateFriendView(View):
     def dispatch(self, request, *args, **kwargs):
