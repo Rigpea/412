@@ -88,8 +88,12 @@ class CreateStatusMessageView(CreateView):
             sm.profile = profile
             sm.save()
 
+            # Debugging: check retrieved files
             files = self.request.FILES.getlist('files')
+            print("Files retrieved:", files)
+            
             for file in files:
+                print("Saving file:", file)
                 img = Image()
                 img.image_file = file
                 img.status_message = sm
@@ -98,8 +102,10 @@ class CreateStatusMessageView(CreateView):
             return super().form_valid(form)
         except Exception as e:
             logger.error(f"Error creating status message: {e}")
-            form.add_error(None, "An unexpected error occurred. views.py/CreateStatusView/form_valid")
+            form.add_error(None, "An unexpected error occurred in form_valid")
             return self.form_invalid(form)
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
 class CreateFriendView(View):
     def dispatch(self, request, *args, **kwargs):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
