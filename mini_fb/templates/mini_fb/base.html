@@ -21,6 +21,9 @@
             </ul>
         </nav>
     </header>
+    {% if user.is_authenticated %}
+    <p>Logged in as: {{ user.username }}</p>
+    {% endif %}
 
     <div class="content">
         {% block content %}
