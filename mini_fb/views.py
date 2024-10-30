@@ -34,7 +34,7 @@ class ShowProfilesPageView(DetailView):
 
     # gotta now pass it the profile how? 
     # need to perform a get operatino from model 
-class UpdateStatusMessageView(UpdateView):
+class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     model = StatusMessage
     form_class = CreateStatusMessageForm
     template_name = 'mini_fb/update_status_form.html'
@@ -46,7 +46,7 @@ class UpdateStatusMessageView(UpdateView):
         return reverse('show_profile', kwargs={'pk': profile_pk})
     
     
-class DeleteStatusMessageView(DeleteView):
+class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     model = StatusMessage
     template_name = 'mini_fb/delete_status_form.html'
     context_object_name = 'status_message'  
@@ -55,7 +55,7 @@ class DeleteStatusMessageView(DeleteView):
         # go back to profile
         profile_pk = self.object.profile.pk
         return reverse('show_profile', kwargs={'pk': profile_pk})
-class UpdateProfileView(UpdateView):
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
     model = Profile
     form_class = UpdateProfileForm
     template_name = 'mini_fb/update_profile_form.html'  # The template to render the form
@@ -72,7 +72,7 @@ class CreateProfileView(CreateView):
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.object.pk})
     
-class CreateStatusMessageView(CreateView):
+class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     model = StatusMessage
     form_class = CreateStatusMessageForm
     template_name = 'mini_fb/create_status_form.html'
@@ -107,19 +107,19 @@ class CreateStatusMessageView(CreateView):
             return self.form_invalid(form)
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
-class CreateFriendView(View):
+class CreateFriendView(LoginRequiredMixin, View):
     def dispatch(self, request, *args, **kwargs):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         other = Profile.objects.get(pk=self.kwargs['other_pk'])
         profile.add_friend(other)
 
         return HttpResponseRedirect(reverse('show_profile', kwargs={'pk': profile.pk}))
-class ShowFriendSuggestionsView(DetailView):
+class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'mini_fb/friend_suggestions.html'
     context_object_name = 'profiles'
 
-class ShowNewsFeedView(DetailView):
+class ShowNewsFeedView(DetailView): # should I show to any 
     model = Profile
     template_name = 'mini_fb/news_feed.html'
     context_object_name = 'profiles'
