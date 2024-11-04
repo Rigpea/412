@@ -7,8 +7,9 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 from django.urls import reverse
 import logging
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
 
 logger = logging.getLogger(__name__)
 
@@ -95,15 +96,26 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         # Redirect back to the profile page after updating
         return reverse('show_profile', kwargs={'pk': self.object.pk})
-
 class CreateProfileView(CreateView):
     model = Profile
     form_class = CreateProfileForm
     template_name = 'mini_fb/create_profile_form.html'
-
+    def get_context_data(self, **kwargs: any):
+        context = super().get_context_data(**kwargs)
+        if 'create_user_form' not in context:
+            context['create_user_form'] = UserCreationForm()
+        return context
+    def form_valid(self, form):
+        user_form = UserCreationForm(self.request.POST)
+        if user_form.is_valid():
+            user = user_form.save()
+            form.instance.user = user 
+            #login(self.request, user)
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
     def get_success_url(self):
         return reverse('show_profile', kwargs={'pk': self.object.pk})
-    
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     model = StatusMessage
     form_class = CreateStatusMessageForm
@@ -182,11 +194,15 @@ class ShowNewsFeedView(LoginRequiredMixin, DetailView): # should I show to any
     model = Profile
     template_name = 'mini_fb/news_feed.html'
     context_object_name = 'profiles'
+
     def get_object(self):
         use = self.request.user
         prof = Profile.objects.filter(user=use).first()
+        
         if prof: 
             return prof
+        else:
+            raise Http404("Profile Not found")
     def get_login_url(self):
         return reverse('login')
 

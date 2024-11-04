@@ -20,7 +20,7 @@
     <!-- Set some if then relationships to update accordingly hmm!-->
 
     {% if user.is_authenticated and user == profiles.user %}
-    <a href="{% url 'news_feed'}">View News Feed</a>
+    <a href="{% url 'news_feed' %}">View News Feed</a>
     {% endif %}
 
      <h2>Friends</h2>

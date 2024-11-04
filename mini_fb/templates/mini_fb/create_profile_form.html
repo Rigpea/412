@@ -6,6 +6,7 @@
         {% csrf_token %}
         <table>
         {{ form.as_table }}
+        {{ create_user_form.as_table }}
          </table>
         <button type="submit">Create Profile</button>
     </form>
