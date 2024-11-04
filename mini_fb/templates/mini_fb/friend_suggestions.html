@@ -18,7 +18,7 @@
                 </td>
                 <td>{{ suggestion.first_name }} {{ suggestion.last_name }}</td>
                 <td>
-                    <a href="{% url 'add_friend' profiles.pk suggestion.pk %}">Add Friend</a>
+                    <a href="{% url 'add_friend'  suggestion.pk %}">Add Friend</a>
                 </td>
             </tr>
         {% empty %}
@@ -29,7 +29,7 @@
     </tbody>
 </table>
 
-<a href="{% url 'show_profile' profiles.pk %}">Back to Profile</a>
+<a href="{% url 'show_profile' profiles.pk%}">Back to Profile</a>
 
 
 

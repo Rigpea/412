@@ -39,6 +39,23 @@ header h1 {
     background-color: #f0f0f0;
     border-radius: 4px;
 }
+/* Logout button*/
+.login-form {
+    justify-content: right;
+}
+.logout-form input[type="submit"] {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: inherit;
+    transition: background-color 0.3s ease;
+}
+
+.logout-form input[type="submit"]:hover {
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
 /* Content container */
 .content {
     max-width: 900px;
