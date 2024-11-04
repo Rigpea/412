@@ -1,6 +1,6 @@
 #mini_fb views.py 
 
-
+from django.contrib.auth import login
 from django.shortcuts import render
 from .models import Profile, StatusMessage, Image
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
@@ -111,7 +111,7 @@ class CreateProfileView(CreateView):
         if user_form.is_valid():
             user = user_form.save()
             form.instance.user = user 
-            #login(self.request, user)
+            login(self.request, user)
             return super().form_valid(form)
         else:
             return self.form_invalid(form)
