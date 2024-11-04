@@ -21,12 +21,13 @@ class ShowAllProfilesView(ListView):
     context_object_name = 'profiles'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
+        if self.request.user.is_authenticated: # here is the problem
             user_profile = self.request.user.profiles.first()
             context['user_profile'] = self.request.user.profiles.first()
             if user_profile:
                 context['user_profile_pk'] = user_profile.pk
             return context
+        return context
 
 #show_profile.htlm to display that profile needs to render
 class ShowProfilesPageView(DetailView):
