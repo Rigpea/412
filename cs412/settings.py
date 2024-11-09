@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     "quotes",
     "restaurant", 
     "mini_fb",
+    "marathon_analytics",
+    "voter_analytics",
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
