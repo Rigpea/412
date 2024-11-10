@@ -1,0 +1,35 @@
+body {
+    background-color: slategray;
+    color: white;
+}
+
+
+div {
+    color: white;
+    border: 2px solid darkblue;
+    padding: 10px;
+    margin: 25px;
+}
+
+table {
+    border: 1px solid white;
+}
+
+td {
+    border: 1px solid white;
+    text-align: center;
+}
+.graphs table {
+    width: 100%;
+    table-layout: fixed; 
+}
+
+.graphs td {
+    width: 100%; 
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.graphs div {
+    width: 100%;
+}

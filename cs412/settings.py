@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     "hw", #new app
     "quotes",
     "restaurant", 
-    "mini_fb",
+    # "mini_fb",
     "marathon_analytics",
     "voter_analytics",
 ]
@@ -146,6 +146,9 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'voter_analytics/static'),
+]
 
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 

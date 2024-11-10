@@ -7,7 +7,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('quotes.urls')),  # Map root URL to the quotes app
     path('restaurant/', include('restaurant.urls')),
-    path('mini_fb/', include('mini_fb.urls')),
+    # path('mini_fb/', include('mini_fb.urls')),
+    path('voter_analytics/', include('voter_analytics.urls')),
 ]
 
 # Serve static files during development
