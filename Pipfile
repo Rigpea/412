@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 pillow = "*"
+django = "*"
+plotly = "*"
+pandas = "*"
 
 [dev-packages]
 
