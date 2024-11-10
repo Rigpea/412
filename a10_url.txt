@@ -1,0 +1,1 @@
+https://playingplayers-1cb0c551ed04.herokuapp.com/voter_analytics/
