@@ -4,7 +4,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 import csv
 from datetime import datetime
-
+import os
+from django.conf import settings
 
 # Create your models here.
 
@@ -35,7 +36,7 @@ def load_data():
 
     Voter.objects.all().delete()
     #file locaiton
-    filename = '/Users/rigs/Desktop/cs412/newton_voters.csv'
+    filename = os.path.join(settings.BASE_DIR, 'newton_voters.csv')
     #open file
     table = open(filename)
 
