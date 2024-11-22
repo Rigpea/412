@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Stock App{% endblock %}</title>
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'stock-list' %}">Stocks</a></li>
+                <li><a href="{% url 'add-stock-data' %}">Add Stock Data</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Content will be injected here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Stock Prediction App</p>
+    </footer>
+</body>
+</html>

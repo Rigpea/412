@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.name }} ({{ object.ticker }}) Details{% endblock %}
+
+{% block content %}
+<h1>{{ object.name }} ({{ object.ticker }})</h1>
+
+<h2>Historical Data:</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+            <th>Volume</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in object.data.all %}
+        <tr>
+            <td>{{ data.date }}</td>
+            <td>{{ data.open_price }}</td>
+            <td>{{ data.high_price }}</td>
+            <td>{{ data.low_price }}</td>
+            <td>{{ data.close_price }}</td>
+            <td>{{ data.volume }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Technical Indicators:</h2>
+<ul>
+    {% for data in object.data.all %}
+        {% for feature in data.features.all %}
+            <li>{{ feature.name }}: {{ feature.value }} (Date: {{ data.date }})</li>
+        {% endfor %}
+    {% endfor %}
+</ul>
+
+<a href="{% url 'stock-list' %}">Back to Stocks List</a>
+{% endblock %}
