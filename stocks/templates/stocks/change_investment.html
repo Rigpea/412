@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Change Investment{% endblock %}
+
+{% block content %}
+<h2>Change Investment for {{ investment.stock.name }} ({{ investment.stock.symbol }})</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Submit Changes</button>
+</form>
+
+<a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+{% endblock %}

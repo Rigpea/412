@@ -153,7 +153,10 @@ STATICFILES_DIRS = [
 
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 
-
+# Alpaca API Configuration
+ALPACA_API_KEY = 'PKCHIRNA4BA28H1DR5ON' 
+ALPACA_SECRET_KEY = 'MyzIvhcMO5KyYWQ8dwEe3pNgq6TFev8ahEOb4mvu'
+ALPACA_BASE_URL = 'https://paper-api.alpaca.markets'  # Use 'https://api.alpaca.markets' for live trading
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

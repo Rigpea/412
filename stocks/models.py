@@ -1,33 +1,51 @@
 from django.db import models
 
-# Create your models here.
-from django.db import models
+class User(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+
+    def __str__(self):
+        return self.name
 
 class Stock(models.Model):
-    name = models.CharField(max_length=100)  # Company name
-    ticker = models.CharField(max_length=10, unique=True)  # Stock ticker symbol
+    symbol = models.CharField(max_length=10, unique=True)
+    name = models.CharField(max_length=100)
+
+    # Fields to store fetched data
+    latest_open = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    latest_close = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    latest_high = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    latest_low = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.name} ({self.ticker})"
+        return f"{self.name} ({self.symbol})"
 
-
-class StockData(models.Model):
-    stock = models.ForeignKey(Stock, on_delete=models.CASCADE, related_name='data')
-    date = models.DateField()
-    open_price = models.DecimalField(max_digits=10, decimal_places=2)
-    high_price = models.DecimalField(max_digits=10, decimal_places=2)
-    low_price = models.DecimalField(max_digits=10, decimal_places=2)
-    close_price = models.DecimalField(max_digits=10, decimal_places=2)
-    volume = models.BigIntegerField()
+class Portfolio(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='portfolios')
+    name = models.CharField(max_length=100, default="My Portfolio")
 
     def __str__(self):
-        return f"{self.stock.ticker} - {self.date}"
+        return f"{self.name} - Owned by {self.user.name}"
 
+    def company_count(self):
 
-class Feature(models.Model):
-    stock_data = models.ForeignKey(StockData, on_delete=models.CASCADE, related_name='features')
-    name = models.CharField(max_length=50)  # Feature name (e.g., RSI, Moving Average)
-    value = models.FloatField()
+        return self.investments.values('stock').distinct().count()
+
+class Investment(models.Model):
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, related_name='investments')
+    stock = models.ForeignKey(Stock, on_delete=models.CASCADE, related_name='investments')
+    amount_invested = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     def __str__(self):
-        return f"{self.name} for {self.stock_data.stock.ticker} on {self.stock_data.date}"
+        return f"{self.stock.symbol} in {self.portfolio.name} - ${self.amount_invested}"
+    
+class TradeLog(models.Model):
+    stock_symbol = models.CharField(max_length=10)
+    action = models.CharField(max_length=4, choices=[('buy', 'Buy'), ('sell', 'Sell')])
+    quantity = models.IntegerField()
+    order_id = models.CharField(max_length=50)
+    status = models.CharField(max_length=20)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.action.upper()} {self.quantity} of {self.stock_symbol} at {self.timestamp}"

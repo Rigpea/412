@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Stocks Added{% endblock %}
+
+{% block content %}
+<h2>Stock Added Successfully!</h2>
+<p>Your stock has been added to the database.</p>
+<a href="{% url 'add_stocks' %}" class="btn btn-primary">Add Another Stock</a>
+<a href="{% url 'home' %}" class="btn btn-secondary">Go to Home</a>
+{% endblock %}

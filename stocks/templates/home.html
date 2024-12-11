@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>
+    {% if user %}
+        Hello, {{ user.name }}!
+    {% else %}
+        Welcome! Please create a user to get started.
+    {% endif %}
+</h2>
+
+{% if investments %}
+    <h3>Your Investments</h3>
+    <ul>
+        {% for investment in investments %}
+    <li>
+        {{ investment.stock.name }} ({{ investment.stock.symbol }}): ${{ investment.amount_invested }}
+        <a href="{% url 'change_investment' investment.pk %}" class="btn btn-warning btn-sm">Change</a>
+        <a href="{% url 'evaluate_stock' investment.id %}" class="btn btn-primary btn-sm">Process</a>
+        <a href="{% url 'stock_details' investment.stock.id %}" class="btn btn-info btn-sm">Details</a>
+
+    </li>
+{% endfor %}
+    </ul>
+{% elif user %}
+    <p>You currently have no investments. Start by adding stocks to your portfolio.</p>
+{% else %}
+    <p>No user data available. Please create a user first.</p>
+{% endif %}
+{% endblock %}
