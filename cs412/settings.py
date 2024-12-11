@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     #"hw", #new app
-    #"quotes",
+    "quotes",
     #"restaurant", 
     # "mini_fb",
     #"marathon_analytics",
