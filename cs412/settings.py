@@ -34,7 +34,13 @@ if not IS_HEROKU_APP:
 
 ALLOWED_HOSTS = ['playingplayers-1cb0c551ed04.herokuapp.com', 'localhost', '127.0.0.1']
 
+import dj_database_url
 
+DATABASES = {
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3'
+    )
+}
 # Application definition
 
 INSTALLED_APPS = [
