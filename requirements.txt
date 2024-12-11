@@ -24,6 +24,7 @@ django-timezone-field==7.0
 feedparser==6.0.11
 fonttools==4.55.2
 frozenlist==1.5.0
+gunicorn==23.0.0
 idna==3.10
 joblib==1.4.2
 kiwisolver==1.4.7
