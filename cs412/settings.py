@@ -32,8 +32,7 @@ if not IS_HEROKU_APP:
     DEBUG = True
 
 
-ALLOWED_HOSTS = ['playingplayers-1cb0c551ed04.herokuapp.com', 'localhost', '127.0.0.1']
-
+ALLOWED_HOSTS = ['stocks-0e35f8bfb248.herokuapp.com', 'localhost', '127.0.0.1']
 import dj_database_url
 
 DATABASES = {
